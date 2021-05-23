@@ -1,0 +1,21 @@
+{
+
+    "manifest_version": 2,
+    "name": "GrayLady",
+    "version": "1.0",
+
+    "description": "Expands access on certain news websites of note.",
+
+    "icons": {
+        "48": "icons/graylady-48.png",
+        "96": "icons/graylady-96.png"
+    },
+
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["graylady.js"]
+      }
+    ]
+
+  }

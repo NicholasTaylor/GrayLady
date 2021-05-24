@@ -16,6 +16,15 @@ const helperLoad = (query, delay) => {
   })
 }
 
+const atlas = () => {
+  const paywallLoaded = helperLoad('#paywall',500);
+  const rmPaywall = (paywall) => {
+    paywall.remove();
+    document.querySelector('body').style.overflow = 'initial';
+  }
+  Promise.all([paywallLoaded]).then((allValues) => rmPaywall(allValues[0]));
+}
+
 const district = () => {
   const takeSnapshot = helperSnap('article',200);
   const paywallLoaded = helperLoad('[id^="paywall"]',2500);
@@ -57,4 +66,6 @@ if (theHost === 'www.washingtonpost.com'){
   district();
 } else if (theHost === 'www.nytimes.com'){
   gotham();
+} else if (theHost === 'www.theatlantic.com'){
+  atlas();
 }

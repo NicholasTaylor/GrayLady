@@ -2,7 +2,7 @@
 
     "manifest_version": 2,
     "name": "GrayLady",
-    "version": "1.1",
+    "version": "1.2",
 
     "description": "Expands access on certain news websites of note.",
 
@@ -13,7 +13,7 @@
 
     "content_scripts": [
       {
-        "matches": ["*://*.nytimes.com/*"],
+        "matches": ["*://*.nytimes.com/*", "*://*.washingtonpost.com/*"],
         "js": ["graylady.js"]
       }
     ]

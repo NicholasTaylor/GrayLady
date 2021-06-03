@@ -43,9 +43,10 @@ const district = () => {
 }
 
 const gotham = () => {
+  const takeSnapshot = helperSnap('article',0);
   const paywallLoaded = helperLoad('#gateway-content',3000);
 
-  const rmPaywall = (paywall) => {
+  const rmPaywall = (snapshot, paywall) => {
     paywall.remove();
     const content = document.querySelector('[class^="css-"]');
     content.style.position = 'initial';
@@ -56,9 +57,10 @@ const gotham = () => {
       }
     }
     content.childNodes.forEach(ele => rmGrad(ele));
+    document.querySelector('article').innerHTML = snapshot;
   }
 
-  Promise.all([paywallLoaded]).then((allValues) => rmPaywall(allValues[0]));
+  Promise.all([takeSnapshot,paywallLoaded]).then((allValues) => rmPaywall(allValues[0],allValues[1]));
 }
 
 const theHost = window.location.hostname;

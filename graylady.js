@@ -27,14 +27,21 @@ const atlas = () => {
 
 const district = () => {
   const takeSnapshot = helperSnap('article',200);
-  const paywallLoaded = helperLoad('[id^="paywall"]',2500);
+  const paywallLoaded = helperLoad('[id^="paywall"]',7000);
 
   const rmPaywall = (snapshot, paywall) => {
-    const body = document.querySelector('body');
     const html = document.querySelector('html');
     paywall.remove();
-    body.style.position = 'initial';
-    body.style.overflow = 'initial';
+    const getBody = () => {
+        console.log(document.querySelector('body').style.overflow);
+        return Promise.resolve(document.querySelector('body'));
+    }
+    getBody().then(
+        (body) => {
+          body.style.position = 'initial';
+          body.style.overflow = 'initial';
+          console.log(document.querySelector('body').style.overflow);
+    });
     html.style.overflow = 'initial';
     document.querySelector('article').innerHTML = snapshot;
   }

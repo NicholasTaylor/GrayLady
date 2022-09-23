@@ -6,11 +6,17 @@ const helperSnap = (query, delay) => {
   })
 }
 
-const helperLoad = (query, delay) => {
+const helperLoad = (query, delay, secondQuery = false, autoResolve = false) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (document.querySelector(query)){
         resolve(document.querySelector(query));
+      }
+      else if (secondQuery && document.querySelector(secondQuery)){
+        resolve(document.querySelector(secondQuery))
+      }
+      else if (autoResolve){
+        resolve(false);
       }
     },delay)
   })
@@ -51,10 +57,12 @@ const district = () => {
 
 const gotham = () => {
   const takeSnapshot = helperSnap('article',0);
-  const paywallLoaded = helperLoad('#gateway-content',3000);
-
+  const paywallLoaded = helperLoad('#gateway-content',3000,false,true);
+ 
   const rmPaywall = (snapshot, paywall) => {
-    paywall.remove();
+    if (paywall) {
+      paywall.remove();
+    }
     const content = document.querySelector('[class^="css-"]');
     content.style.position = 'initial';
     content.style.overflow = 'initial';
